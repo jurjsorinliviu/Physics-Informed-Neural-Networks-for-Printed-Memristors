@@ -4,7 +4,7 @@ This repository contains the full framework, dataset, and scripts to reproduce t
 
 **“Physics-Informed Neural Networks for Compact Modeling of Printed Memristors: A Generalizable Framework."**  - a paper soon to be submitted to a journal
 
-We propose the first **Physics-Informed Neural Network (PINN)** framework tailored for printed memristors, incorporating variability, noise robustness, and multi-mechanism conduction, with a formulation directly compatible with Verilog-A/SPICE compact models for potential circuit-level integration.  
+We propose the first **Physics-Informed Neural Network (PINN)** framework tailored for printed memristors, incorporating variability, noise robustness, and multi-mechanism conduction. We outline a pathway to a Verilog-A compact model for use in SPICE-class simulators, with implementation and solver-stability validation left for future work.  
 
 ---
 
@@ -23,7 +23,8 @@ printed-memristor-pinn/
 │   ├── ExperimentalValidationFramework.py       # Evaluation metrics (RRMSE, robustness, variability)
 │   ├── VTEAMModelComparison.py                  # VTEAM baseline implementation
 │   ├── ResultsVisualization.py                  # Plotting utilities (I–V curves, distributions, metrics)
-│   ├── CompleteExperimentalReproduction.py      # Orchestrates full experiments
+│   ├──CompleteExperimentalReproduction.py      # Orchestrates full experiments
+│   ├──ExtendedValidation.py                     # Extended Validation experiments
 │   └── run_pinn.py                              # Main entry point
 │
 ├── results/   # Contains example outputs (metrics, plots) and is populated with new results when running the code
@@ -113,6 +114,8 @@ Run:
 python src/ExtendedValidation.py \
   --seeds 40 41 42 \
   --output-dir results/extended_validation
+
+---
 
 ## 📈 Reproduced Results
 
