@@ -101,6 +101,18 @@ python src/run_pinn.py --mode full   --full-epochs 800 --full-hidden-layers 4 --
 Results (metrics + plots) are saved in the directory passed to `--results-dir`.
 
 ---
+## 🔎 Extended Validation (digitized experimental curves)
+
+We evaluate generalization on digitized I–V curves from three published device classes:
+- Inkjet-printed IGZO (Ag/IGZO/ITO)
+- Aerosol-jet MoS₂ (Ag/MoS₂/Ag)
+- Paper-based MoS₂/graphene (Graphene/MoS₂/Au)
+
+Run:
+```bash
+python src/ExtendedValidation.py \
+  --seeds 40 41 42 \
+  --output-dir results/extended_validation
 
 ## 📈 Reproduced Results
 
