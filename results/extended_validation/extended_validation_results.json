@@ -1,0 +1,104 @@
+{
+  "training_parameters": {
+    "epochs": 800,
+    "learning_rate": 0.0002,
+    "hidden_layers": 4,
+    "neurons_per_layer": 128,
+    "noise_std": 0.002,
+    "variability_bound": 0.05,
+    "max_physics_weight": 0.1
+  },
+  "datasets": [
+    "IGZO_inkjet",
+    "MoS2_aerosol",
+    "Paper_inkjet"
+  ],
+  "model_comparisons": {
+    "IGZO_inkjet": {
+      "VTEAM": {
+        "rrmse": 0.20887672538160587
+      },
+      "Yakopcic": {
+        "rrmse": 120.00337363269827
+      },
+      "Stanford-PKU": {
+        "rrmse": 0.2626285344274565
+      },
+      "MMS": {
+        "rrmse": 1.641930900524627
+      },
+      "PINN": {
+        "rrmse": 0.9236886401274295
+      }
+    },
+    "MoS2_aerosol": {
+      "VTEAM": {
+        "rrmse": 0.38341559086053933
+      },
+      "Yakopcic": {
+        "rrmse": 0.34655852939859527
+      },
+      "Stanford-PKU": {
+        "rrmse": 0.5742317990776761
+      },
+      "MMS": {
+        "rrmse": 0.1849434180932309
+      },
+      "PINN": {
+        "rrmse": 0.09656642313580943
+      }
+    },
+    "Paper_inkjet": {
+      "VTEAM": {
+        "rrmse": 0.35981334821129274
+      },
+      "Yakopcic": {
+        "rrmse": 4.83311585071379
+      },
+      "Stanford-PKU": {
+        "rrmse": 11.351847171153498
+      },
+      "MMS": {
+        "rrmse": 0.7305522747212666
+      },
+      "PINN": {
+        "rrmse": 0.1966614835988576
+      }
+    }
+  },
+  "ensemble_results": {
+    "IGZO_inkjet": {
+      "mean_rrmse": 1.0716375907262166,
+      "std_rrmse": 0.10467415844898842,
+      "min_rrmse": 0.9236800670623779,
+      "max_rrmse": 1.1496719121932983,
+      "seeds_used": [
+        42,
+        41,
+        40
+      ]
+    },
+    "MoS2_aerosol": {
+      "mean_rrmse": 0.1581056887904803,
+      "std_rrmse": 0.06206944647195974,
+      "min_rrmse": 0.09656552225351334,
+      "max_rrmse": 0.24308398365974426,
+      "seeds_used": [
+        42,
+        41,
+        40
+      ]
+    },
+    "Paper_inkjet": {
+      "mean_rrmse": 0.40433939794699353,
+      "std_rrmse": 0.18439298744750915,
+      "min_rrmse": 0.19666101038455963,
+      "max_rrmse": 0.6447561383247375,
+      "seeds_used": [
+        42,
+        41,
+        40
+      ]
+    }
+  }
+}
