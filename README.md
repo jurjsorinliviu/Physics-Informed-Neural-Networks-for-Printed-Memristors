@@ -114,9 +114,9 @@ Run:
 python src/ExtendedValidation.py \
   --seeds 40 41 42 \
   --output-dir results/extended_validation
+```
 
 ---
-
 ## 📈 Reproduced Results
 
 - **4.1× improvement** in RRMSE compared to VTEAM baseline.  
@@ -125,7 +125,6 @@ python src/ExtendedValidation.py \
 - Framework is **exportable to Verilog-A/SPICE compact models** for potential circuit-level integration.  
 
 ---
-
 ## 📜 License
 
 This project is licensed under the MIT License.  
