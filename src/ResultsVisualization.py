@@ -64,12 +64,19 @@ def plot_experimental_results(
     pinn_pred = np.asarray(results.get("pinn_pred_test", []), dtype=float)
     vteam_pred = np.asarray(results.get("vteam_pred_test", []), dtype=float)
     if V_test.size and pinn_pred.size:
+        # Sort data by voltage to avoid "spaghetti" plotting
+        sort_idx = np.argsort(V_test)
+        V_test_sorted = V_test[sort_idx]
+        pinn_pred_sorted = pinn_pred[sort_idx]
+        
         fig, ax = plt.subplots(figsize=(9, 5))
         if I_test.size:
-            ax.scatter(V_test, I_test, s=10, alpha=0.4, label="Measured", color="#3a7cbc")
-        ax.plot(V_test, pinn_pred, label="PINN", linewidth=2.0, color="#d95f02")
+            I_test_sorted = I_test[sort_idx]
+            ax.scatter(V_test_sorted, I_test_sorted, s=10, alpha=0.4, label="Measured", color="#3a7cbc")
+        ax.plot(V_test_sorted, pinn_pred_sorted, label="PINN", linewidth=2.0, color="#d95f02")
         if vteam_pred.size:
-            ax.plot(V_test, vteam_pred, label="VTEAM", linestyle="--", linewidth=2.0, color="#1b9e77")
+            vteam_pred_sorted = vteam_pred[sort_idx]
+            ax.plot(V_test_sorted, vteam_pred_sorted, label="VTEAM", linestyle="--", linewidth=2.0, color="#1b9e77")
         ax.set_xlabel("Voltage (V)")
         ax.set_ylabel("Current (A)")
         ax.set_title("I-V Characteristics Comparison")

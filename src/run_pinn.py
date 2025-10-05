@@ -147,11 +147,24 @@ def plot_synthetic_results(
     pinn_pred = results.get("pinn_pred_test")
     vteam_pred = results.get("vteam_pred_test")
     if V_test is not None and pinn_pred is not None:
+        # Convert to numpy arrays and sort by voltage to avoid "spaghetti" plotting
+        V_test = np.asarray(V_test)
+        I_test = np.asarray(I_test) if I_test is not None else None
+        pinn_pred = np.asarray(pinn_pred)
+        vteam_pred = np.asarray(vteam_pred) if vteam_pred is not None else None
+        
+        sort_idx = np.argsort(V_test)
+        V_test_sorted = V_test[sort_idx]
+        pinn_pred_sorted = pinn_pred[sort_idx]
+        
         plt.figure(figsize=(9, 5))
-        plt.scatter(V_test, I_test, s=10, alpha=0.4, label="Synthetic", color="#3a7cbc")
-        plt.plot(V_test, pinn_pred, label="PINN", linewidth=2.0, color="#d95f02")
+        if I_test is not None:
+            I_test_sorted = I_test[sort_idx]
+            plt.scatter(V_test_sorted, I_test_sorted, s=10, alpha=0.4, label="Synthetic", color="#3a7cbc")
+        plt.plot(V_test_sorted, pinn_pred_sorted, label="PINN", linewidth=2.0, color="#d95f02")
         if vteam_pred is not None:
-            plt.plot(V_test, vteam_pred, label="VTEAM", linestyle="--", linewidth=2.0)
+            vteam_pred_sorted = vteam_pred[sort_idx]
+            plt.plot(V_test_sorted, vteam_pred_sorted, label="VTEAM", linestyle="--", linewidth=2.0)
         plt.xlabel("Voltage (V)")
         plt.ylabel("Current (A)")
         plt.title("Synthetic I-V Comparison")
