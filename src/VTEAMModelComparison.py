@@ -1,4 +1,6 @@
+import time
 import numpy as np
+
 
 class VTEAMModel:
     """Implementation of VTEAM model for comparison"""
@@ -30,6 +32,8 @@ class VTEAMModel:
     
     def simulate_iv(self, voltage_sweep):
         """Simulate complete I-V characteristics"""
+        start_time = time.time()
+        
         w = self.w_min
         current = np.zeros_like(voltage_sweep)
         
@@ -41,4 +45,5 @@ class VTEAMModel:
             # Calculate current
             current[i] = self.predict_current(V, w)
         
-        return current
+        elapsed = time.time() - start_time
+        return current, elapsed

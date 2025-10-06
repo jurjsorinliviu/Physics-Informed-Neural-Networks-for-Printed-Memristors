@@ -1,5 +1,6 @@
 ﻿from __future__ import annotations
 
+import time
 import numpy as np
 import tensorflow as tf
 
@@ -47,10 +48,16 @@ class ExperimentalValidator:
         voltage: np.ndarray,
         state: np.ndarray | None = None,
         concentration: np.ndarray | None = None,
-    ) -> np.ndarray:
+    ) -> tuple[np.ndarray, float]:
+        inference_start = time.time()
+        
         inputs = self._build_inputs(voltage, state, concentration)
         current_pred, _ = self.pinn.model(inputs, training=False)
-        return current_pred.numpy().flatten()
+        result = current_pred.numpy().flatten()
+        
+        inference_time = time.time() - inference_start
+        
+        return result, inference_time
 
     def calculate_rrmse(self, I_pred: np.ndarray, I_meas: np.ndarray) -> float:
         mse = np.mean((I_pred - I_meas) ** 2)
@@ -76,7 +83,7 @@ class ExperimentalValidator:
             V_noisy = V_clean + self._rng.normal(
                 0.0, noise_std * (np.std(V_clean) + 1e-12), size=V_clean.shape
             )
-            noisy_pred = self.predict_current(V_noisy, state, concentration)
+            noisy_pred, _ = self.predict_current(V_noisy, state, concentration)
             robustness_rrmse = self.calculate_rrmse(noisy_pred, baseline_prediction)
             results[float(noise_std)] = robustness_rrmse
         return results

@@ -60,18 +60,18 @@ def run_complete_experiments(
     dataset_path: Path | str = DEFAULT_DATASET,
     concentration_label: Optional[str] = "10_percent_PMMA",
     device_id: Optional[int] = 0,
-    epochs: int = 800,  # Changed from 600
-    noise_std: float = 0.002,  # Changed from 0.02
-    variability_bound: float = 0.05,  # Changed from 0.15
-    learning_rate: float = 2e-4,  # Changed from 5e-4
+    epochs: int = 800,
+    noise_std: float = 0.002,
+    variability_bound: float = 0.05,
+    learning_rate: float = 2e-4,
     verbose_every: int = 50,
-    max_physics_weight: float = 0.1,  # Changed from 0.3
-    hidden_layers: int = 4,  # Changed from 3
-    neurons_per_layer: int = 128,  # Changed from 64
+    max_physics_weight: float = 0.1,
+    hidden_layers: int = 4,
+    neurons_per_layer: int = 128,
     state_mixing: float = 0.2,
     seed: int = 42,
     trainable_params: tuple[str, ...] | None = ("ohmic_conductance",),
-    use_concentration_feature: bool = False,  # Changed from True
+    use_concentration_feature: bool = False,
     results_dir: Path | str = Path("results"),
     show_plots: bool = False,
 ) -> dict[str, object]:
@@ -129,16 +129,29 @@ def run_complete_experiments(
         verbose_every=verbose_every,
         max_physics_weight=max_physics_weight,
     )
+    
+    # EXTRACT AND PRINT TRAINING TIME
+    training_time_min = 0.0
+    if loss_history:
+        training_time_min = loss_history[-1].get('training_time_minutes', 0.0)
+        print(f"Training completed in {training_time_min:.2f} minutes")
 
     validator = ExperimentalValidator(pinn, seed=seed)
     print("\n3. Evaluating PINN and baseline models...")
-    I_pinn_pred = validator.predict_current(
+    I_pinn_pred, pinn_inference_time = validator.predict_current(
         V_test,
         x_test,
         concentration=c_test if use_concentration_feature else None,
     )
+    
+    # CALCULATE AND PRINT INFERENCE TIME
+    inference_time_per_1000_pts = (pinn_inference_time / V_test.size) * 1000
+    print(f"PINN inference: {inference_time_per_1000_pts*1000:.2f} ms per 1000 points")
+    
     vteam = VTEAMModel()
-    I_vteam_pred = vteam.simulate_iv(V_test)
+    I_vteam_pred, vteam_inference_time = vteam.simulate_iv(V_test)
+    vteam_inference_per_1000 = (vteam_inference_time / V_test.size) * 1000
+    print(f"VTEAM inference: {vteam_inference_per_1000*1000:.2f} ms per 1000 points")
 
     pinn_rrmse = validator.calculate_rrmse(I_pinn_pred, I_test)
     vteam_rrmse = validator.calculate_rrmse(I_vteam_pred, I_test)
@@ -182,6 +195,9 @@ def run_complete_experiments(
         "trainable_params": ",".join(trainable_params) if trainable_params else "",
         "train_samples": int(V_train.size),
         "test_samples": int(V_test.size),
+        "training_time_minutes": float(training_time_min),
+        "pinn_inference_ms_per_1000pts": float(inference_time_per_1000_pts * 1000),
+        "vteam_inference_ms_per_1000pts": float(vteam_inference_per_1000 * 1000),
         "pinn_rrmse": float(pinn_rrmse),
         "vteam_rrmse": float(vteam_rrmse),
         "improvement_factor": float(improvement),
@@ -234,6 +250,9 @@ def run_complete_experiments(
     print(f"VTEAM RRMSE: {vteam_rrmse:.3f}")
     print(f"Improvement factor over VTEAM: {improvement:.2f}x")
     print(f"Noise robustness (2%): {robustness_results[0.02]:.3f}")
+    print(f"Training time: {training_time_min:.2f} minutes")
+    print(f"PINN inference: {inference_time_per_1000_pts*1000:.2f} ms/1000pts")
+    print(f"VTEAM inference: {vteam_inference_per_1000*1000:.2f} ms/1000pts")
 
     return results
 

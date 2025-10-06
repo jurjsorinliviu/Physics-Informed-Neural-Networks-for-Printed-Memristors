@@ -1,5 +1,6 @@
 ﻿from __future__ import annotations
 
+import time
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -190,6 +191,9 @@ class PINNTrainer:
 
         c_tensor = tf.convert_to_tensor(concentration, dtype=self.pinn.dtype) if concentration is not None else None
 
+        # START TIMER
+        training_start_time = time.time()
+
         for epoch in range(epochs):
             progress = epoch / max(epochs - 1, 1)
             lambda_physics = (
@@ -231,5 +235,13 @@ class PINNTrainer:
                     f"| Data {history_entry['data_loss']:.3e} | Physics {history_entry['physics_loss']:.3e} "
                     f"| w_phys {lambda_physics:.2f}"
                 )
+
+        # END TIMER AND STORE
+        training_end_time = time.time()
+        training_duration = training_end_time - training_start_time
+        
+        if self.loss_history:
+            self.loss_history[-1]['training_time_seconds'] = training_duration
+            self.loss_history[-1]['training_time_minutes'] = training_duration / 60.0
 
         return self.loss_history
