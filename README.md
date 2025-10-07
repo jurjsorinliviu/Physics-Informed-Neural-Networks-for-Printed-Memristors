@@ -200,8 +200,11 @@ dt = 0.1e-9  # Decrease for finer resolution (but slower simulation)
 ```
 
 **Integration with SPICE**
+
 The exported LUT (pinn_memristor_lut.txt) can be used in SPICE via:
+
 a) ngspice (table-based behavioral source):
+
 ```bash
 * Load LUT and use PWL interpolation
 .control
@@ -215,6 +218,7 @@ b) Verilog-A (read LUT in analog block):
 // Inside analog block
 I(p,n) <+ interpolate(lut_data, V(p,n), state);
 ```
+
 ---
 ## 📈 Reproduced Results
 
