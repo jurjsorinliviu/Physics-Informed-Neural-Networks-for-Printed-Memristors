@@ -150,6 +150,7 @@ The LUT file format:
 -2.000000 0.000000 -2.345e-05
 -2.000000 0.020408 -2.356e-05
 ...
+  
 Step 3: Run Circuit Simulation
 ```bash
 python balanced_simulation.py
