@@ -155,8 +155,9 @@ Step 3: Run Circuit Simulation
 ```bash
 python balanced_simulation.py
 ```
-Expected Console Output:
 
+Expected Console Output:
+```bash
 PINN Model (Physics-Informed, Gradual Switching):
   Initial state:    0.100
   Final state:      0.914
@@ -175,10 +176,12 @@ Comparison:
   Energy ratio (PINN/VTEAM):    0.71x
   Switching time (PINN):        27.5 ns
   Switching time (VTEAM):       18.6 ns
+```
 
 **Customization**
-Modify Circuit Parameters by editing balanced_simulation.py:
 
+Modify Circuit Parameters by editing balanced_simulation.py:
+```bash
 Line ~30-35: Memristor parameters
 R_on = 1e3      # ON resistance (Ohm)
 R_off = 100e3   # OFF resistance (Ohm)
@@ -194,20 +197,24 @@ t_width = 100e-9   # Pulse duration (s)
 Change Simulation Resolution
 Line ~21: Time step
 dt = 0.1e-9  # Decrease for finer resolution (but slower simulation)
+```
 
 **Integration with SPICE**
 The exported LUT (pinn_memristor_lut.txt) can be used in SPICE via:
 a) ngspice (table-based behavioral source):
+```bash
 * Load LUT and use PWL interpolation
 .control
 load pinn_memristor_lut.txt
 ...
 .endc
+```
 
 b) Verilog-A (read LUT in analog block):
+```bash
 // Inside analog block
 I(p,n) <+ interpolate(lut_data, V(p,n), state);
-
+```
 ---
 ## 📈 Reproduced Results
 
