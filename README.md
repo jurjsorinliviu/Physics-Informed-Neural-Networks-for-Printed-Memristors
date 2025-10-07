@@ -4,7 +4,7 @@ This repository contains the full framework, dataset, and scripts to reproduce t
 
 **“Physics-Informed Neural Networks for Compact Modeling of Printed Memristors: A Generalizable Framework."**  - a paper soon to be submitted to a journal
 
-We propose the first **Physics-Informed Neural Network (PINN)** framework tailored for printed memristors, incorporating variability, noise robustness, and multi-mechanism conduction. We outline a pathway to a Verilog-A compact model for use in SPICE-class simulators, with implementation and solver-stability validation left for future work.  
+We propose the first **Physics-Informed Neural Network (PINN)** framework tailored for printed memristors, incorporating variability, noise robustness, and multi-mechanism conduction.  
 
 ---
 
