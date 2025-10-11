@@ -237,9 +237,10 @@ python src/ExtendedValidation.py \
   --output-dir results/extended_validation
 ```
 **Tested Devices**:
-✅ Inkjet-printed IGZO (Ag/IGZO/ITO)
-✅ Aerosol-jet MoS₂ (Ag/MoS₂/Ag)
-✅ Paper-based MoS₂/graphene
+- ✅ Inkjet-printed IGZO (Ag/IGZO/ITO)
+- ✅ Aerosol-jet MoS₂ (Ag/MoS₂/Ag)
+- ✅ Paper-based MoS₂/graphene
+
 **Result**: PINN achieves lowest error on MoS₂ and paper datasets, remains competitive on IGZO.
 
 ---
@@ -325,7 +326,7 @@ Training data (printed_memristor_training_data.csv) includes:
 - 20,000 voltage-current pairs
 - 4 PMMA concentrations: 5%, 10%, 15%, 20%
 - Bipolar sweeps: -2.0 V to +2.0 V
-- 
+
 ### **Regenerate Dataset**
 ```bash
 python src/generate_synthetic_data.py \
