@@ -43,28 +43,25 @@ printed-memristor-pinn/
 │   ├── balanced_simulation.py                   # Circuit simulation
 │   ├── export_pinn_to_spice.py                  # LUT export
 │   ├── run_pinn.py                              # Main entry point
-│   │
-│   └── Supplementary Experiments (15):
-│       ├── exp1_dynamic_pulse_response.py       # Dynamic operation
-│       ├── exp2_write_read_cycles.py            # Non-destructive reads
-│       ├── exp3_energy_efficiency.py            # Energy comparison
-│       ├── exp4_multicell_variability.py        # Device-to-device variability
-│       ├── exp5_noise_robustness.py             # Noise tolerance
-│       ├── exp6_temperature_switching.py        # Temperature-dependent I-V
-│       ├── exp7_multilevel_retention.py         # Multi-level stability
-│       ├── exp8_temperature_retention.py        # Thermal drift analysis
-│       ├── exp9_endurance_cycling.py            # Cycling degradation
-│       ├── exp10_combined_reliability.py        # Cycle-temperature mapping
-│       ├── exp10_arrhenius_fit.py               # Helper: Arrhenius fitting
-│       ├── exp11_arrhenius_lifetime.py          # Lifetime projections
-│       ├── exp12_self_heating.py                # Electro-thermal coupling
-│       ├── exp13_bias_lifetime.py               # Bias-accelerated aging
-│       └── exp14_15_reliability_and_acceleration.py  # Bottleneck analysis
+│   ├── exp1_dynamic_pulse_response.py       # Dynamic operation
+│   ├── exp2_write_read_cycles.py            # Non-destructive reads
+│   ├── exp3_energy_efficiency.py            # Energy comparison
+│   ├── exp4_multicell_variability.py        # Device-to-device variability
+│   ├── exp5_noise_robustness.py             # Noise tolerance
+│   ├── exp6_temperature_switching.py        # Temperature-dependent I-V
+│   ├── exp7_multilevel_retention.py         # Multi-level stability
+│   ├── exp8_temperature_retention.py        # Thermal drift analysis
+│   ├── exp9_endurance_cycling.py            # Cycling degradation
+│   ├── exp10_combined_reliability.py        # Cycle-temperature mapping
+│   ├── exp10_arrhenius_fit.py               # Helper: Arrhenius fitting
+│   ├── exp11_arrhenius_lifetime.py          # Lifetime projections
+│   ├── exp12_self_heating.py                # Electro-thermal coupling
+│   ├── exp13_bias_lifetime.py               # Bias-accelerated aging
+│   └── exp14_15_reliability_and_acceleration.py  # Bottleneck analysis
 │
 ├── results/
 │   ├── main manuscript folders with experiments # Core validation results
 │   └── supplementary_experiments/               # Results and Data generated from additional 15 experiments
-│
 │
 ├── requirements.txt
 ├── README.md
